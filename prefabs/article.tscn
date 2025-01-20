@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://rwoyklv7weqt"]
+
+[ext_resource type="Script" uid="uid://cp286wo2pljx5" path="res://prefabs/article.gd" id="1_sreo6"]
+[ext_resource type="Image" uid="uid://dcd07vjjv6f82" path="res://assets/sprites/censor_bar.png" id="2_8kg2g"]
+
+[node name="Article" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sreo6")
+censoring_bar = ExtResource("2_8kg2g")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_separation = 1
+theme_override_font_sizes/normal_font_size = 18
+text = "Dies ist ein Test,
+inwiefern es funktioniert, bestimmte Anteile von dem Text hier zu zensieren,
+ohne dass andere Anteile mit beeinträchtigt sind.
+
+Auch verschiedene Absätze müssen hierfür berücksichtigt werden."
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
