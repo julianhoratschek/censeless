@@ -26,7 +26,16 @@ text = "Dies ist ein Test,
 inwiefern es funktioniert, bestimmte Anteile von dem Text hier zu zensieren,
 ohne dass andere Anteile mit beeinträchtigt sind.
 
-Auch verschiedene Absätze müssen hierfür berücksichtigt werden."
+Auch verschiedene Absätze müssen hierfür berücksichtigt werden.
+
+Und da es relativ offensichtlich ist, dass diese
+Absätze es nicht wirklich schaffen, konsistent den Text
+vor sich her zu schieben, hier der
+
+Beweis, dass die Anteile, so wie sie im Text
+aktuell sind, nicht korrekt
+gefunden und prozessiert werden können und die Anteile
+daher doch recht schweirig zu bekommen sin."
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
