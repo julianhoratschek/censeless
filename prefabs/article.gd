@@ -14,6 +14,10 @@ func _ready():
 	texture_rect.texture = ImageTexture.create_from_image(censoring)
 
 
+## Approximates word boundaries in $RichTextEdit for word at index idx.
+## This method is not exact, but close enough without the need of TextServer
+## Usage or reimplementation of a TextLabel-Family
+## @return Rect2i in local coordinates
 func _approx_word_boundaries(word: String, idx: int) -> Rect2i:
 	var line_no: int = text_label.get_character_line(idx)
 	var line_break: int = text_label.text.rfind("\n", idx)
@@ -53,7 +57,7 @@ func _area_percentage(locations: Array[Rect2i]) -> float:
 				if censoring.get_pixel(x, y) == Color.BLACK:
 					counter += 1
 		
-		var p := rect.get_area() * 70 / 100
+		var p := rect.get_area() * 70 / float(100)
 		if counter >= p:
 			good += 1
 
@@ -63,8 +67,7 @@ func _area_percentage(locations: Array[Rect2i]) -> float:
 # Nur experimentell gefunden, unsauber aber scheinbar hinreichend
 const BreakAdd := 4.8
 
-func evaluate(word_groups: Dictionary[StringName, PackedStringArray]): # -> Dictionary[StringName, Dictionary]:
-	var eval_text: String = text_label.text.to_lower()
+func evaluate(word_groups: Dictionary[StringName, PackedStringArray]) -> Dictionary[StringName, Dictionary]:
 	var found: Dictionary[String, float] = {}
 	var result: Dictionary[StringName, Dictionary] = {}
 	
@@ -76,8 +79,8 @@ func evaluate(word_groups: Dictionary[StringName, PackedStringArray]): # -> Dict
 			# Don't recalculate, if we already processed this word
 			if found.has(word):
 				result[group][word] = found[word]
-				break
-			
+				continue
+				
 			var idx := 0
 			var locations: Array[Rect2i] = []
 			
@@ -88,11 +91,13 @@ func evaluate(word_groups: Dictionary[StringName, PackedStringArray]): # -> Dict
 					break
 				
 				locations.append(_approx_word_boundaries(word, idx))
-			
+				
 			found[word] = _area_percentage(locations)
-			print("%s: %f" % [word, found[word]])
-				# for debugging
-				# censoring.fill_rect(Rect2i(word_begin_off, Vector2i(word_end_off.x - word_begin_off.x, 18)), Color.YELLOW)
+			result[group][word] = found[word]
+			
+	return result
+			# for debugging
+			# censoring.fill_rect(Rect2i(word_begin_off, Vector2i(word_end_off.x - word_begin_off.x, 18)), Color.YELLOW)
 	# For debugging
 	# texture_rect.texture.update(censoring)
 
