@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://rwoyklv7weqt"]
+[gd_scene load_steps=4 format=3 uid="uid://rwoyklv7weqt"]
 
 [ext_resource type="Script" uid="uid://cp286wo2pljx5" path="res://prefabs/article.gd" id="1_sreo6"]
 [ext_resource type="Image" uid="uid://dcd07vjjv6f82" path="res://assets/sprites/censor_bar.png" id="2_8kg2g"]
+[ext_resource type="FontFile" uid="uid://brgrf277jvlpy" path="res://assets/fonts/veteran typewriter.ttf" id="3_nycf6"]
 
 [node name="Article" type="Control"]
+custom_minimum_size = Vector2(640, 720)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 720.0
 script = ExtResource("1_sreo6")
 censoring_bar = ExtResource("2_8kg2g")
 
@@ -20,7 +20,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/line_separation = 1
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 2
+theme_override_fonts/normal_font = ExtResource("3_nycf6")
 theme_override_font_sizes/normal_font_size = 18
 text = "Dies ist ein Test,
 inwiefern es funktioniert, bestimmte Anteile von dem Text hier zu zensieren,

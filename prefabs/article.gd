@@ -3,6 +3,7 @@ extends Control
 @export var censoring_bar: Image
 
 var drawing := false
+var _debug := true
 
 @onready var text_label := $RichTextLabel
 @onready var texture_rect := $TextureRect
@@ -11,6 +12,8 @@ var drawing := false
 											 false, Image.FORMAT_RGBA8)
 
 func _ready():
+	print("here")
+	print(text_label.size)
 	texture_rect.texture = ImageTexture.create_from_image(censoring)
 
 
@@ -38,8 +41,13 @@ func _approx_word_boundaries(word: String, idx: int) -> Rect2i:
 			text_label.justification_flags
 		)
 	word_end_off = Vector2(word_end_off.x + (idx + word.length() - line_break), (word_end_off.y + BreakAdd) * line_no)
+
+	var result := Rect2i(word_begin_off, Vector2i(word_end_off.x - word_begin_off.x, font_size)) # font_size = 18?
+
+	if _debug:
+		censoring.fill_rect(result, Color.YELLOW)
 	
-	return Rect2i(word_begin_off, Vector2i(word_end_off.x - word_begin_off.x, font_size)) # font_size = 18?
+	return result
 
 # Counts one rectangle if at least 70% are black
 # Returns ratio of "completed" rectangles VS total rectangles
@@ -65,7 +73,7 @@ func _area_percentage(locations: Array[Rect2i]) -> float:
 
 
 # Nur experimentell gefunden, unsauber aber scheinbar hinreichend
-const BreakAdd := 4.8
+const BreakAdd := 4.5
 
 func evaluate(word_groups: Dictionary[StringName, PackedStringArray]) -> Dictionary[StringName, Dictionary]:
 	var found: Dictionary[String, float] = {}
@@ -84,22 +92,22 @@ func evaluate(word_groups: Dictionary[StringName, PackedStringArray]) -> Diction
 			var idx := 0
 			var locations: Array[Rect2i] = []
 			
-			# Find all occurances of word
+			# Find all occurrences of word
 			while true:
 				idx = text_label.text.findn(word, idx + word.length())
 				if idx == -1:
 					break
 				
 				locations.append(_approx_word_boundaries(word, idx))
-				
+
 			found[word] = _area_percentage(locations)
 			result[group][word] = found[word]
+	
+	if _debug:
+		texture_rect.texture.update(censoring)
 			
 	return result
-			# for debugging
-			# censoring.fill_rect(Rect2i(word_begin_off, Vector2i(word_end_off.x - word_begin_off.x, 18)), Color.YELLOW)
-	# For debugging
-	# texture_rect.texture.update(censoring)
+
 
 func _on_texture_rect_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

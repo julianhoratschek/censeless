@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://et5yjp2yt3y6"]
+
+[ext_resource type="PackedScene" uid="uid://rwoyklv7weqt" path="res://prefabs/article.tscn" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://ds3403s5vnpug" path="res://prefabs/message_board.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://q843u40h377x" path="res://prefabs/sigil.tscn" id="2_h2yge"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xm2m"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.712129, 0.712129, 0.712129, 1)
+shadow_color = Color(0, 0, 0, 0.576471)
+shadow_size = 5
+shadow_offset = Vector2(10, 10)
+
+[node name="Main" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="CanvasLayer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0xm2m")
+
+[node name="Sigil" parent="CanvasLayer/VBoxContainer/MarginContainer/Panel" instance=ExtResource("2_h2yge")]
+layout_mode = 1
+offset_left = 660.0
+offset_top = 577.0
+offset_right = 724.0
+offset_bottom = 641.0
+scale = Vector2(1.5, 1.5)
+
+[node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Article" parent="CanvasLayer/VBoxContainer/MarginContainer/CenterContainer2" instance=ExtResource("1_0xm2m")]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MessageBoard" parent="CanvasLayer/VBoxContainer/CenterContainer" instance=ExtResource("1_ig7tw")]
+layout_mode = 2

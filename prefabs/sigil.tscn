@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://q843u40h377x"]
+
+[ext_resource type="Texture2D" uid="uid://cxshmhlw0nuxn" path="res://assets/sprites/sigil.png" id="1_n8on2"]
+
+[node name="Sigil" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_n8on2")

@@ -124,20 +124,22 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="MessageBoard" type="Node"]
+[node name="MessageBoard" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_08ayw")
 animation = &"opened"
 autoplay = "opened"
-centered = false
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 31.0
-offset_top = 32.0
-offset_right = 994.0
-offset_bottom = 85.0
+layout_mode = 0
+offset_left = -482.0
+offset_top = -27.0
+offset_right = 481.0
+offset_bottom = 26.0
 theme_override_fonts/normal_font = ExtResource("2_poxep")
 theme_override_font_sizes/normal_font_size = 16
 text = "Willkommen"
